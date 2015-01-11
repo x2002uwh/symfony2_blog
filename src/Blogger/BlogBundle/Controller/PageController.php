@@ -104,6 +104,10 @@ class PageController extends Controller
         if (!$blog) {
             throw $this->createNotFoundException("Unable to find Blog post.");
         }
-        return array("blog"=>$blog);
+
+        $comments = $em->getRepository("BloggerBlogBundle:Comment")
+                       ->getCommentsForBlog($blog->getId());
+
+        return array("blog"=>$blog, "comments"=>$comments);
     }
 }
