@@ -4,6 +4,7 @@ namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,14 +26,14 @@ class Comment
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message = "You must enter your name")
      * @ORM\Column(name="user", type="string", length=128)
      */
     private $user;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message = "You must enter a comment")
      * @ORM\Column(name="comment", type="text")
      */
     private $comment;

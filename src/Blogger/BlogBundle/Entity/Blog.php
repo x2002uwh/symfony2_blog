@@ -5,6 +5,8 @@ namespace Blogger\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Blogger\BlogBundle\Entity\Comment;
+
 /**
  * Blog
  *
@@ -29,6 +31,11 @@ class Blog
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
 
     /**
      * @var string
@@ -264,6 +271,16 @@ class Blog
         return $this->updated;
     }
 
+
+    /**
+     * @ORM\prePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
     /**
      * @ORM\PreUpdate
      */
@@ -278,5 +295,43 @@ class Blog
 
     public function getComments() {
         return $this->comments;
+    }
+
+
+    public function __toString() {
+        return $this->getTitle();
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Blog
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     */
+    public function removeComment(Comment $comments)
+    {
+        $this->comments->removeElement($comments);
     }
 }
