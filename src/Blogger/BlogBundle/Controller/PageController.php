@@ -110,4 +110,22 @@ class PageController extends Controller
 
         return array("blog"=>$blog, "comments"=>$comments);
     }
+
+    /**
+     * @Route("/sidebar", name="blog_sidebar")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function sidebarAction() {
+        $em = $this->getDoctrine()
+            ->getEntityManager();
+
+        $tags = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getTags();
+
+        $tagWeights = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getTagWeights($tags);
+
+        return array('tags' => $tagWeights);
+    }
 }
