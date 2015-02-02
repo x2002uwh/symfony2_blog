@@ -10,3 +10,22 @@
         {% endfor %}
     </p>
 </section>
+
+<section class="section">
+    <header>
+        <h3>Latest Comments</h3>
+    </header>
+    {% for comment in latestComments %}
+        <article class="comment">
+            <header>
+                <p class="small">
+                    <span class="highlight">{{ comment.user }}</span> commented on
+                    <a href="{{ path('blog_show', {'id': comment.blog.id, 'slug': comment.blog.slug}) }}#comment-{{ comment.id }}"></a>
+                </p>
+            </header>
+            <p>{{ comment.comment }}</p>
+        </article>
+    {% else %}
+        <p>There are no recent comments.</p>
+    {% endfor %}
+</section>
