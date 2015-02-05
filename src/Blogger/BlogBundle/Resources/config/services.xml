@@ -13,4 +13,12 @@
         </service>
     </services>
     -->
+
+    <services>
+        <service id="blogger_blog.twig.extension"
+                 class="Blogger\BlogBundle\Twig\Extensions\BloggerBlogExtension"
+                 public="false">
+            <tag name="twig.extension" />
+        </service>
+    </services>
 </container>
